@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+
                             // Hamza AitAhmed
-							// 2APG4 EMSI Orangers
+							// 2APG4 EMSI Orangers , Casablanca , Maroc
 							// 2022/2021
 
 typedef struct node
@@ -12,9 +13,9 @@ typedef struct node
     struct node *next;
 }node;
 
-node *head = NULL , *fl = NULL , *lsd = NULL ; // Des Variables Globales
+node *head = NULL , *fl = NULL ; // Des Variables Globales
 
-node *addhead() // cree un block pour un processus
+node *addhead() // cree un bloc pour un processus dans la memoire
 {
     node *n = (node*)malloc( sizeof(node) );
     n->next = NULL;
@@ -23,7 +24,7 @@ node *addhead() // cree un block pour un processus
     return n;
 }
 
-node *addfl() // cree un block pour un processus
+node *addfl() // cree un bloc pour un processus la fil d'attente
 {
     node  *temp1 = fl, *n = (node*)malloc( sizeof(node) );
 
@@ -47,12 +48,12 @@ node *addfl() // cree un block pour un processus
 }
 
 
-void compactage()  // naaaaadi  1010
+void compactage()  // 1010
 {
     int taille=0;
     node *temp11 , *temp12 ;
 
-    node *n = (node *)malloc(sizeof(node) ); // créer un block pour remplacer tous les zones libres dans un seul block qui est n
+    node *n = (node *)malloc(sizeof(node) ); // créer un bloc pour remplacer tous les blocs libres dans un seul bloc qui est n
 
     n->next = NULL;
     n->type = 'L';
@@ -61,9 +62,9 @@ void compactage()  // naaaaadi  1010
     temp12 = temp11;
     if(temp11->next != NULL)
     {
-        while(temp11 != NULL)  //pour éliminer les blocs des zones libres et les remplacer tous dans un seul block
+        while(temp11 != NULL)  //pour éliminer les blocs libres et les remplacer tous dans un seul bloc
         {
-            if(temp11->type == 'L')  // c'est pour verifier si Le 1 er block a une zone libre
+            if(temp11->type == 'L')  // c'est pour verifier si Le 1 er bloc est libre
             {
                 if(temp11 == temp12)
                 {
@@ -92,7 +93,7 @@ void compactage()  // naaaaadi  1010
         else
             temp12->next = n;
 
-        n->taille = taille; //  après avoir supprimer les zones libres et compter leur taille
+        n->taille = taille; //  après avoir supprimer les blocs libres et compter leur taille
     }
 
 }
@@ -300,7 +301,7 @@ void BestFit(FILE *p)
                 temp1 = head;
                 jhead=0;
                 int flp=0;
-                while(temp1!=NULL && jhead==0) // trouver la processus qu'on va liberer
+                while(temp1!=NULL && jhead==0) // trouver le processus qu'on va liberer
                 {
                     if( x == temp1->taille )
                     {
@@ -417,7 +418,7 @@ void BestFit(FILE *p)
                             }
                             else
                             {
-                                if(temp1 == temp4)    //  si la zone libre est le 1er block dans la liste head  ( la memoire )
+                                if(temp1 == temp4)    //  si le bloc libre est le 1er bloc dans la liste head  ( la memoire )
                                 {
                                     fl = temp2->next;
                                     temp2->type = 'O';
@@ -425,7 +426,7 @@ void BestFit(FILE *p)
                                     temp1->taille -= temp2->taille;
                                     head = temp2;
                                 }
-                                else             //        si la zone libre est au milieu dans la liste head  ( la memoire )
+                                else             //        si le bloc libre est au milieu dans la liste head  ( la memoire )
                                 {
                                     fl = temp2->next;
                                     temp2->type = 'O';
@@ -435,9 +436,9 @@ void BestFit(FILE *p)
                                 }
                             }
                         }
-                        else  // si le processus est au milieu de la FL
+                        else  // si le processus est au milieu de la FL ( fil d'attente )
                         {
-                            if(temp2->taille == temp1->taille)   // si la taille du processus est la meme taille de la zone libre dans la liste head ( la memoire )
+                            if(temp2->taille == temp1->taille)   // si la taille du processus est la meme taille du bloc libre dans la liste head ( la memoire )
                             {
                                 temp3->next = temp2->next;
                                 temp1->type = 'O';
@@ -446,7 +447,7 @@ void BestFit(FILE *p)
                             }
                             else
                             {
-                                if(temp1 == temp4)    //   si le zone libre est le 1er block dans la liste head  ( la memoire )
+                                if(temp1 == temp4)    //   si le bloc libre est le 1er bloc dans la liste head  ( la memoire )
                                 {
                                     temp3->next = temp2->next;
                                     temp2->type = 'O';
@@ -468,7 +469,7 @@ void BestFit(FILE *p)
                         jhead=1;
                     }
                 }
-                if(jhead == 0)  // compactage ... pour fl
+                if(jhead == 0)  // compactage ... pour ajouter processus qui est on fl dans head si la taille totale des blocs libres est sup au taille du processus
                 {
                     if(temp2->taille <= taille_total )
                     {
@@ -691,7 +692,7 @@ void FirstFit(FILE *p)
 
                 temp1 = fl;
                 temp2 = temp1;
-                while(temp1!=NULL && flp==0) // trouver la processus qu on va liberer dans FL
+                while(temp1!=NULL && flp==0) // trouver le processus qu on va liberer dans FL
                 {
                     if( x == temp1->taille )
                     {
@@ -760,7 +761,7 @@ void FirstFit(FILE *p)
                                 }
                                 else
                                 {
-                                    if(temp1 == temp4)     //  si le zone libre est le 1er block dans la liste head  ( la memoire )
+                                    if(temp1 == temp4)     //  si le bloc libre est le 1er bloc dans la liste head  ( la memoire )
                                     {
                                         fl = temp2->next;
                                         temp2->type = 'O';
@@ -768,7 +769,7 @@ void FirstFit(FILE *p)
                                         temp1->taille -= temp2->taille;
                                         head = temp2;
                                     }
-                                    else                 //   si le zone libre est au milieu dans la liste head  ( la memoire )
+                                    else                 //   si le bloc libre est au milieu dans la liste head  ( la memoire )
                                     {
                                         fl = temp2->next;
                                         temp2->type = 'O';
@@ -789,7 +790,7 @@ void FirstFit(FILE *p)
                                 }
                                 else
                                 {
-                                    if(temp1 == temp4)    //   si le zone libre est le 1er block dans la liste head  ( la memoire )
+                                    if(temp1 == temp4)    //   si le bloc libre est le 1er bloc dans la liste head  ( la memoire )
                                     {
                                         temp3->next = temp2->next;
                                         temp2->type = 'O';
@@ -919,7 +920,7 @@ void WorstFit(FILE *p)
                     y = 0;
                     taille_total = 0 ;
 
-                    while(temp1!=NULL && jpos==0) // pour trouver la meilleur zone libre
+                    while(temp1!=NULL && jpos==0) // pour trouver le meilleur bloc libre
                     {
                         if(temp1->type == 'L' )
                         {
@@ -1151,7 +1152,7 @@ void WorstFit(FILE *p)
                             }
                             else
                             {
-                                if(temp1 == temp4)    //   si le zone libre est le 1er block dans la liste head  ( la memoire )
+                                if(temp1 == temp4)    //   si le zone libre est le 1er bloc dans la liste head  ( la memoire )
                                 {
                                     fl = temp2->next;
                                     temp2->type = 'O';
@@ -1180,7 +1181,7 @@ void WorstFit(FILE *p)
                             }
                             else
                             {
-                                if(temp1 == temp4)    //   si le zone libre est le 1er block dans la liste head  ( la memoire )
+                                if(temp1 == temp4)    //   si le zone libre est le 1er bloc dans la liste head  ( la memoire )
                                 {
                                     temp3->next = temp2->next;
                                     temp2->type = 'O';
