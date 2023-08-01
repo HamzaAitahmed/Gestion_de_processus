@@ -13,7 +13,7 @@ typedef struct node
     struct node *next;
 }node;
 
-node *head = NULL , *fl = NULL ; // Des Variables Globales
+node *head = NULL , *fl = NULL ; // Des liste chainée
 
 node *addhead() // cree un bloc pour un processus dans la memoire
 {
@@ -47,8 +47,12 @@ node *addfl() // cree un bloc pour un processus la fil d'attente
     return n;
 }
 
-
-void compactage()  // 1010
+/*
+	le compactage est une fonction qui compte la taille totale des blocs libres 
+	et élimine tous les blocs libres en mémoire et ajoute un bloc en mémoire 
+	qui est libre et sa taille est égale à la taille totale des blocs libres qui sont éliminés
+*/
+void compactage()  
 {
     int taille=0;
     node *temp11 , *temp12 ;
@@ -139,7 +143,22 @@ void afficher()
     printf("\n");
 }
 
+/*
+	Si on ( + ) on a 3 etapes 
+	1 - ajouter le proecssus dans la memoire directement s'il y a un bloc libre est sa taille et superieur a la taille du processus sinon on passe a la 2eme etape
+	2 - si la taille du processus est superieure a la taille totale des blocs libres on fait le compactage sinon on passe a la 3eme etape
+	3 - ajouter le processus dans la fil d'attente 
 
+	Si on ( - ) on 3 etapes
+	1 - trouver le processus qu'on va liberer
+	2 - trouver le processus qui a la petite taille SJF ( Short Job First ) dans FL ( la fil d'attente)
+	3 - ajouter ce processus dans head ( la memoire ) s'il ya un bloc libre qui la taille sup ou egale a la taille du processus sinon
+	4 - compactage si on peut ajouter le proecssus dans head ( la memoire )
+	5 - afficher()
+	
+	On passe au processus suivant qui est dans le fichier tailleoriginal.txt
+
+*/
 void BestFit(FILE *p)
 {
     node *temp1 , *temp2 , *temp3 , *temp4 , *temp5 , *temp6 ;
@@ -313,7 +332,7 @@ void BestFit(FILE *p)
 
                 temp1 = fl;
                 temp2 = temp1;
-                while(temp1!=NULL && flp==0) // trouver la processus qu on va liberer dans FL
+                while(temp1!=NULL && flp==0) // trouver la processus a liberer dans FL si processus n'a pas trouvé un bloc dans la memoire et doit etre liberer
                 {
                     if( x == temp1->taille )
                     {
