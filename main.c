@@ -13,7 +13,7 @@ typedef struct node
     struct node *next;
 }node;
 
-node *head = NULL , *fl = NULL ; // Des liste chainÈe
+node *head = NULL , *fl = NULL ; // Des liste chain√©e
 
 node *addhead() // cree un bloc pour un processus dans la memoire
 {
@@ -49,15 +49,15 @@ node *addfl() // cree un bloc pour un processus la fil d'attente
 
 /*
 	le compactage est une fonction qui compte la taille totale des blocs libres 
-	et Èlimine tous les blocs libres en mÈmoire et ajoute un bloc en mÈmoire 
-	qui est libre et sa taille est Ègale ‡ la taille totale des blocs libres qui sont ÈliminÈs
+	et √©limine tous les blocs libres en m√©moire et ajoute un bloc en m√©moire 
+	qui est libre et sa taille est √©gale √† la taille totale des blocs libres qui sont √©limin√©s
 */
 void compactage()  
 {
     int taille=0;
     node *temp11 , *temp12 ;
 
-    node *n = (node *)malloc(sizeof(node) ); // crÈer un bloc pour remplacer tous les blocs libres dans un seul bloc qui est n
+    node *n = (node *)malloc(sizeof(node) ); // cr√©er un bloc pour remplacer tous les blocs libres dans un seul bloc qui est n
 
     n->next = NULL;
     n->type = 'L';
@@ -66,7 +66,7 @@ void compactage()
     temp12 = temp11;
     if(temp11->next != NULL)
     {
-        while(temp11 != NULL)  //pour Èliminer les blocs libres et les remplacer tous dans un seul bloc
+        while(temp11 != NULL)  //pour √©liminer les blocs libres et les remplacer tous dans un seul bloc
         {
             if(temp11->type == 'L')  // c'est pour verifier si Le 1 er bloc est libre
             {
@@ -97,7 +97,7 @@ void compactage()
         else
             temp12->next = n;
 
-        n->taille = taille; //  aprËs avoir supprimer les blocs libres et compter leur taille
+        n->taille = taille; //  apr√®s avoir supprimer les blocs libres et compter leur taille
     }
 
 }
@@ -332,7 +332,7 @@ void BestFit(FILE *p)
 
                 temp1 = fl;
                 temp2 = temp1;
-                while(temp1!=NULL && flp==0) // trouver la processus a liberer dans FL si processus n'a pas trouvÈ un bloc dans la memoire et doit etre liberer
+                while(temp1!=NULL && flp==0) // trouver la processus a liberer dans FL si processus n'a pas trouv√© un bloc dans la memoire et doit etre liberer
                 {
                     if( x == temp1->taille )
                     {
@@ -399,7 +399,7 @@ void BestFit(FILE *p)
                                 max = temp1->taille;
                                 y=1;
                             }
-                            if(temp2->taille == temp5->taille) //  temp2 est pointÈe dans la boocle  SJF
+                            if(temp2->taille == temp5->taille) //  temp2 est point√©e dans la boocle  SJF
                             {
                                 temp1 = temp5;
                                 temp4 = temp6;
@@ -1334,5 +1334,7 @@ int main()
             WorstFit(pf);
             break;
     }
+    getchar();
+
     return 0;
 }
